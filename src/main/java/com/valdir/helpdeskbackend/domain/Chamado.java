@@ -32,7 +32,9 @@ public class Chamado implements Serializable {
 	
 	private Prioridade prioridade;
 	
-	private Status titulo;
+	private Status status;
+	
+	private String titulo;
 	
 	private String observacoes;
 	
@@ -44,11 +46,12 @@ public class Chamado implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	public Chamado(Integer id, Prioridade prioridade, Status titulo, String observacoes, Tecnico tecnico,
+	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
 			Cliente cliente) {
 		super();
 		this.id = id;
 		this.prioridade = prioridade;
+		this.status = status;
 		this.titulo = titulo;
 		this.observacoes = observacoes;
 		this.tecnico = tecnico;
@@ -87,11 +90,19 @@ public class Chamado implements Serializable {
 		this.prioridade = prioridade;
 	}
 
-	public Status getTitulo() {
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(Status titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
