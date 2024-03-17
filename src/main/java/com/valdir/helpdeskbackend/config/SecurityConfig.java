@@ -1,7 +1,5 @@
 package com.valdir.helpdeskbackend.config;
 
-import java.util.Arrays;
-
 import com.valdir.helpdeskbackend.security.JWTAuthenticationFilter;
 import com.valdir.helpdeskbackend.security.JWTAuthorizationFilter;
 import com.valdir.helpdeskbackend.security.JWTUtil;
@@ -20,11 +18,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 	
 	@Autowired
 	private Environment env;
@@ -40,17 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
-		
+
 		http.cors().and().csrf().disable();
-
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
-		
-		http.authorizeRequests()
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.anyRequest().authenticated();
-		
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
@@ -67,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
