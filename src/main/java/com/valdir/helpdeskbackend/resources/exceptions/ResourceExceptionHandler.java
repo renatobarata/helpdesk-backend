@@ -1,7 +1,7 @@
 package com.valdir.helpdeskbackend.resources.exceptions;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.valdir.helpdeskbackend.services.exceptions.DataIntegrityViolationException;
+import com.valdir.helpdeskbackend.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -9,8 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.valdir.helpdeskbackend.services.exceptions.DataIntegrityViolationException;
-import com.valdir.helpdeskbackend.services.exceptions.ObjectNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

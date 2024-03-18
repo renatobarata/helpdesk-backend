@@ -1,14 +1,5 @@
 package com.valdir.helpdeskbackend.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.valdir.helpdeskbackend.domain.Pessoa;
 import com.valdir.helpdeskbackend.domain.Tecnico;
 import com.valdir.helpdeskbackend.domain.dtos.TecnicoDTO;
@@ -16,6 +7,13 @@ import com.valdir.helpdeskbackend.repositories.PessoaRepository;
 import com.valdir.helpdeskbackend.repositories.TecnicoRepository;
 import com.valdir.helpdeskbackend.services.exceptions.DataIntegrityViolationException;
 import com.valdir.helpdeskbackend.services.exceptions.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TecnicoService {
@@ -69,11 +67,10 @@ public class TecnicoService {
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("CPF já cadastrado no sistema.");
 		}
-		
+
 		obj = pessoaRepository.findByEmail(objDTO.getEmail());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema.");
 		}
 	}
-
 }
